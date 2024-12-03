@@ -27,7 +27,7 @@ const Input = ({ type, name, placeholder, options }: InputProps) => {
 
   return (
     <input
-      className="p-2  rounded-xl border w-full"
+      className="p-2 border rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#e05937]"
       type={type}
       name={name}
       placeholder={placeholder}
