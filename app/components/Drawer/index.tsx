@@ -1,41 +1,33 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React from "react";
+
+import CloseIcon from "../../assets/icons/close.svg";
+
 type DrawerProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 };
 
-export const Drawer = ({ isOpen, onClose, children }: DrawerProps) => {
+const Drawer = ({ isOpen, onClose, children }: DrawerProps) => {
   return (
     <div
-      className={`fixed inset-0 z-50 transition-transform duration-300 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      }`}
+      className={`fixed top-0 right-0 h-full bg-gray-100 shadow-lg transform transition-transform duration-300 ease-in-out ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      } w-[50%]`}
     >
-      {/* <div className="fixed inset-0 bg-black bg-opacity-30" onClick={onClose}>
-        <p></p>
-      </div> */}
-      <div className="relative bg-white h-full w-80 shadow-lg">
+      <div className="relative h-full p-4">
         <button
-          className="absolute top-4 right-4 text-gray-600 hover:text-gray-800"
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
           onClick={onClose}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <img src={CloseIcon} alt="" />
         </button>
-        <div className="p-4">{children}</div>
+        {children}
       </div>
     </div>
   );
 };
+
+export default Drawer;

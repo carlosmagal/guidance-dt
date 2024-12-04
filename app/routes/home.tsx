@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { MetaFunction } from "@remix-run/node";
 
 import Button from "~/components/Button";
 import Card from "~/components/ClothingCard";
-import ClothingDrawer from "~/components/ClotingDrawer";
 
 import { clothingItems } from "~/data/clothing";
+import Drawer from "~/components/Drawer";
+import ClothingForm from "~/components/Form/ClothingForm";
+import { ClothingModel } from "~/types/Clothing";
 
 export const meta: MetaFunction = () => {
   return [{ title: "Home" }];
@@ -25,6 +27,15 @@ export default function HomePage() {
   const handleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
   };
+
+  // const [items, setItems] = useState<ClothingModel[]>([]);
+
+  // useEffect(() => {
+  //   const storedItems = JSON.parse(
+  //     localStorage.getItem("clothingItems") || "[]"
+  //   );
+  //   setItems(storedItems);
+  // }, []);
 
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col">
@@ -52,7 +63,12 @@ export default function HomePage() {
         </div>
       </main>
 
-      <ClothingDrawer isOpen={isDrawerOpen} onClose={handleDrawer} />
+      <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+        <h2 className="text-lg font-bold text-[#e05937] mb-4">
+          Cadastrar Produto
+        </h2>
+        <ClothingForm />
+      </Drawer>
     </section>
   );
 }

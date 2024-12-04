@@ -3,7 +3,7 @@ import { useNavigate } from "@remix-run/react";
 
 import Background from "../assets/images/login.jpg";
 
-import Input from "~/components/Input";
+import Input from "~/components/Form/fields/Input";
 import Button from "~/components/Button";
 
 export const meta: MetaFunction = () => {
