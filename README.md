@@ -1,40 +1,40 @@
-# Welcome to Remix!
+# Desafio Técnico Guidance
 
-- 📖 [Remix docs](https://remix.run/docs)
+Projeto desenvolvido em **Remix JS**, que implementa um sistema de gerenciamento de roupas. Ele permite realizar um **CRUD** (Create, Read, Update, Delete) completo para cadastrar e gerenciar roupas. 
 
-## Development
+## Funcionalidades
 
-Run the dev server:
+- **Cadastro de roupas**
+- **Listagem de roupas**
+- **Atualização**
+- **Exclusão**
 
-```shellscript
+---
+
+## Tecnologias Utilizadas
+
+- **Remix JS**
+- **Formik + Yup**
+- **Tailwind CSS**
+
+---
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
+
+- [Node.js](https://nodejs.org/) (versão 14 ou superior)
+- [Git](https://git-scm.com/)
+
+## Execução
+
+Para instalar as dependências execute:
+
+```
+npm install
+```
+
+Execute o servidor de desenvolvimento do Remix:
+
+```
 npm run dev
 ```
-
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
