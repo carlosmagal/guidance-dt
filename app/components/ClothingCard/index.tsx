@@ -5,7 +5,7 @@ import DeleteIcon from "~/assets/icons/delete.svg";
 
 type ClothingCardProps = {
   clothing: ClothingModel;
-  onEdit: (id: number) => void;
+  onEdit: (id: ClothingModel) => void;
   onDelete: (id: number) => void;
 };
 
@@ -23,7 +23,7 @@ const ClothingCard = ({ clothing, onEdit, onDelete }: ClothingCardProps) => {
       </div>
       <div className="flex gap-2">
         <button
-          onClick={() => onEdit(clothing.id)}
+          onClick={() => onEdit(clothing)}
           className="text-blue-500 hover:text-blue-700"
         >
           <img src={EditIcon} alt="" />

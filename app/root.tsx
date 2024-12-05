@@ -6,7 +6,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import { ToastContainer } from "react-toastify";
+
 import stylesheet from "~/tailwind.css?url";
+import "react-toastify/dist/ReactToastify.css";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,6 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <ToastContainer />
         {children}
         <ScrollRestoration />
         <Scripts />

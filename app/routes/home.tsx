@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import type { MetaFunction } from "@remix-run/node";
+import { toast } from "react-toastify";
 
 import Button from "~/components/Button";
 import Card from "~/components/ClothingCard";
-
-import { clothingItems } from "~/data/clothing";
 import Drawer from "~/components/Drawer";
 import ClothingForm from "~/components/Form/ClothingForm";
+
 import { ClothingModel } from "~/types/Clothing";
+
+import { ServiceFactory } from "~/service/Clothing";
+
+const clothingService = ServiceFactory.createClothingService();
 
 export const meta: MetaFunction = () => {
   return [{ title: "Home" }];
@@ -16,26 +21,36 @@ export const meta: MetaFunction = () => {
 export default function HomePage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const handleEdit = (id: number) => {
-    console.log(id);
+  const [data, setData] = useState<ClothingModel[]>([]);
+  const [updateData, setUpdateData] = useState<ClothingModel | undefined>(
+    undefined
+  );
+
+  const handleEdit = (clothing: ClothingModel) => {
+    setUpdateData(clothing);
+    setIsDrawerOpen(true);
   };
 
-  const handleDelete = (id: number) => {
-    console.log(id);
+  const handleDelete = async (id: number) => {
+    await clothingService.delete(id);
+    handleLoadData();
+    toast.success("Roupa removida com sucesso!");
   };
 
   const handleDrawer = () => {
     setIsDrawerOpen((prev) => !prev);
+    setUpdateData(undefined);
   };
 
-  // const [items, setItems] = useState<ClothingModel[]>([]);
+  const handleLoadData = async () => {
+    const items = await clothingService.getAll();
 
-  // useEffect(() => {
-  //   const storedItems = JSON.parse(
-  //     localStorage.getItem("clothingItems") || "[]"
-  //   );
-  //   setItems(storedItems);
-  // }, []);
+    setData(items);
+  };
+
+  useEffect(() => {
+    handleLoadData();
+  }, []);
 
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col">
@@ -52,7 +67,7 @@ export default function HomePage() {
 
       <main className="flex-grow p-5">
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {clothingItems.map((clothing) => (
+          {data.map((clothing) => (
             <Card
               key={clothing.id}
               clothing={clothing}
@@ -67,7 +82,14 @@ export default function HomePage() {
         <h2 className="text-lg font-bold text-[#e05937] mb-4">
           Cadastrar Produto
         </h2>
-        <ClothingForm />
+        <ClothingForm
+          updateData={updateData}
+          onFinish={() => {
+            setUpdateData(undefined);
+            setIsDrawerOpen(false);
+            handleLoadData();
+          }}
+        />
       </Drawer>
     </section>
   );

@@ -1,9 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useNavigate } from "@remix-run/react";
 
-import Background from "../assets/images/login.jpg";
+import Background from "../assets/images/login_image.jpg";
 
-import Input from "~/components/Form/fields/Input";
+import Input from "~/components/Input";
 import Button from "~/components/Button";
 
 export const meta: MetaFunction = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CurrencyInput from "react-currency-input";
 
 export type InputProps = {
@@ -5,9 +6,18 @@ export type InputProps = {
   name: string;
   placeholder?: string;
   options?: string[];
+  value?: any;
+  onChange?: (e: any) => void;
 };
 
-const Input = ({ type, name, placeholder, options }: InputProps) => {
+const Input = ({
+  type,
+  name,
+  placeholder,
+  options,
+  value,
+  onChange,
+}: InputProps) => {
   switch (type) {
     case "select":
       if (!options) {
@@ -18,7 +28,8 @@ const Input = ({ type, name, placeholder, options }: InputProps) => {
         <select
           name={name}
           className="p-2 rounded-xl border w-full bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#e05937] placeholder-gray-500"
-          defaultValue=""
+          onChange={onChange}
+          value={value}
         >
           <option value="" disabled>
             {placeholder || "Selecione uma opção"}
@@ -34,11 +45,17 @@ const Input = ({ type, name, placeholder, options }: InputProps) => {
     case "currency":
       return (
         <CurrencyInput
-          placeholder="Informe o valor"
+          placeholder={placeholder}
           className="p-2 border rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-[#e05937] placeholder-gray-900"
           prefix="R$"
           decimalSeparator=","
           thousandSeparator="."
+          onChange={(_: any, val: number) => {
+            if (onChange) {
+              onChange(val);
+            }
+          }}
+          value={value}
         />
       );
 
@@ -49,6 +66,8 @@ const Input = ({ type, name, placeholder, options }: InputProps) => {
           type={type}
           name={name}
           placeholder={placeholder}
+          onChange={onChange}
+          value={value}
         />
       );
   }

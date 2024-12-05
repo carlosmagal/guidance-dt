@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Field, ErrorMessage } from "formik";
 
-import Input, { InputProps } from "../Input";
+import Input, { InputProps } from "~/components/Input";
 
 type FormFieldProps = InputProps & {
   label: string;
+  error?: string;
+  touched: boolean;
 };
 
 const FormField = ({
@@ -13,27 +15,28 @@ const FormField = ({
   name,
   placeholder,
   options,
+  value,
+  onChange,
+  error,
+  touched,
 }: FormFieldProps) => {
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={name} className="text-gray-700 font-medium">
         {label}
       </label>
-      <Field name={name}>
-        {({ field }: any) => (
-          <Input
-            {...field}
-            type={type}
-            placeholder={placeholder}
-            options={options}
-          />
-        )}
-      </Field>
-      <ErrorMessage
+      <Input
         name={name}
-        component="div"
-        className="text-red-500 text-sm"
+        type={type}
+        placeholder={placeholder}
+        options={options}
+        value={value}
+        onChange={onChange}
       />
+
+      {error && touched && (
+        <span className="text-red-500 text-sm">{error}</span>
+      )}
     </div>
   );
 };
